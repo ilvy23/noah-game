@@ -1,0 +1,28 @@
+{
+  "version": 3,
+  "location": "lunuen",
+  "sanity": 80,
+  "trust": 0,
+  "fear": 0,
+  "flags": {
+    "achievements": [
+      "first_steps"
+    ]
+  },
+  "inventory": [],
+  "visited": [
+    "lunuen",
+    "nook",
+    "forest"
+  ],
+  "seen": [],
+  "journal": [],
+  "deaths": 0,
+  "day": 1,
+  "night": false,
+  "chapter": 1,
+  "connor_line": 0,
+  "mika_line": 0,
+  "noah_rest_day": 0,
+  "context": null
+}

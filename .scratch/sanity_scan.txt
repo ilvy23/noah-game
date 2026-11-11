@@ -1,0 +1,78 @@
+engine.py:1: # engine.py — FOLK: the state, sanity, save/load, and text rendering.
+engine.py:103:         self.sanity: int = 80                  # 0–100
+engine.py:117:         self._noah_rest_day: int = 0           # last day Noah restored sanity
+engine.py:148:     # -- sanity -------------------------------------------------------------
+engine.py:149:     def sanity_change(self, delta: int, reason: str = "") -> None:
+engine.py:150:         """Adjust the sanity value silently (no on-screen message)."""
+engine.py:151:         self.sanity = max(0, min(100, self.sanity + delta))
+engine.py:154:     def sanity_tier(self) -> str:
+engine.py:155:         """Return a tier name for the current sanity value (mechanics only)."""
+engine.py:156:         if self.sanity >= 60:
+engine.py:158:         if self.sanity >= 40:
+engine.py:160:         if self.sanity >= 20:
+engine.py:185:             "sanity": self.sanity,
+engine.py:209:         s.sanity = d.get("sanity", 80)
+tests/test_scripted_playthroughs.py:96:         "sanity": 80,
+tests/test_scripted_playthroughs.py:123:         sanity=80,
+tests/test_scripted_playthroughs.py:146:         sanity=80,
+tests/test_scripted_playthroughs.py:168:         sanity=80,
+tests/test_scripted_playthroughs.py:190:         sanity=80,
+tests/test_scripted_playthroughs.py:211:     """Sanity collapse: sanity <= 0 triggers the 'collapse' death."""
+tests/test_scripted_playthroughs.py:215:         sanity=0,
+tests/test_scripted_playthroughs.py:238:         sanity=50,
+tests/test_scripted_playthroughs.py:258:         sanity=50,
+tests/test_scripted_playthroughs.py:289:         sanity=80,
+tests/test_scripted_playthroughs.py:322:         sanity=80,
+tests/test_scripted_playthroughs.py:346:         sanity=80,
+tests/test_scripted_playthroughs.py:371:     """`talk noah` must work at every sanity tier (steady, thin, low,
+tests/test_scripted_playthroughs.py:376:     for sanity, tier_name in tiers:
+tests/test_scripted_playthroughs.py:377:         save = _save_with(location="nook", sanity=sanity, seen=["lunuen", "nook"])
+tests/test_scripted_playthroughs.py:411:     for sanity in tiers:
+tests/test_scripted_playthroughs.py:414:                 location="nook", sanity=sanity, chapter=chapter,
+tests/test_scripted_playthroughs.py:420:             assert rc == 0, f"game crashed at sanity={sanity} chapter={chapter}: {err}"
+tests/test_scripted_playthroughs.py:433:             key = (sanity, chapter)
+tests/test_scripted_playthroughs.py:438: def test_talk_noah_restores_sanity_once_per_day(tmp_path):
+tests/test_scripted_playthroughs.py:439:     """Talking to Noah must restore sanity once per day (mechanics only,
+tests/test_scripted_playthroughs.py:442:     save = _save_with(location="nook", sanity=50, seen=["lunuen", "nook"])
+tests/test_scripted_playthroughs.py:447:     # sanity must have been restored exactly once (50 → 58, not 50 → 66)
+tests/test_scripted_playthroughs.py:451:     assert data["sanity"] == 58, \
+tests/test_scripted_playthroughs.py:452:         f"expected sanity 58 after one restore, got {data['sanity']}"
+tests/test_scripted_playthroughs.py:457:     with a mug and restore +10 sanity."""
+tests/test_scripted_playthroughs.py:460:         location="schloss", sanity=80,
+tests/test_scripted_playthroughs.py:478:         location="schloss", sanity=80,
+tests/test_scripted_playthroughs.py:495:     save = _save_with(location="lunuen", sanity=80)
+tests/test_scripted_playthroughs.py:506:     save = _save_with(location="lunuen", sanity=80)
+tests/test_engine.py:1: """Engine tests: State, sanity, journal, save/load, migration."""
+tests/test_engine.py:21:     assert s.sanity == 80
+tests/test_engine.py:34: def test_sanity_clamped():
+tests/test_engine.py:36:     s.sanity_change(-200)
+tests/test_engine.py:37:     assert s.sanity == 0
+tests/test_engine.py:38:     s.sanity_change(200)
+tests/test_engine.py:39:     assert s.sanity == 100
+tests/test_engine.py:58: def test_sanity_tier_boundaries():
+tests/test_engine.py:60:     s.sanity = 100
+tests/test_engine.py:61:     assert s.sanity_tier == "steady"
+tests/test_engine.py:62:     s.sanity = 60
+tests/test_engine.py:63:     assert s.sanity_tier == "steady"
+tests/test_engine.py:64:     s.sanity = 59
+tests/test_engine.py:65:     assert s.sanity_tier == "thin"
+tests/test_engine.py:66:     s.sanity = 40
+tests/test_engine.py:67:     assert s.sanity_tier == "thin"
+tests/test_engine.py:68:     s.sanity = 39
+tests/test_engine.py:69:     assert s.sanity_tier == "low"
+tests/test_engine.py:70:     s.sanity = 20
+tests/test_engine.py:71:     assert s.sanity_tier == "low"
+tests/test_engine.py:72:     s.sanity = 19
+tests/test_engine.py:73:     assert s.sanity_tier == "critical"
+tests/test_engine.py:74:     s.sanity = 0
+tests/test_engine.py:75:     assert s.sanity_tier == "critical"
+tests/test_engine.py:121:     s.sanity = 42
+tests/test_engine.py:134:     assert loaded.sanity == 42
+tests/test_engine.py:165:         "sanity": 77,
+tests/test_engine.py:178:     assert s.sanity == 77
+tests/test_engine.py:196:         "sanity": 50,
+tests/test_engine.py:236:         "sanity": 77,
+tests/test_engine.py:248:     assert s.sanity == 77
+tests/test_engine.py:257:         "sanity": 50,
+tests/test_engine.py:283:         "sanity": 40,
+tests/test_engine.py:480:         "sanity": 77,

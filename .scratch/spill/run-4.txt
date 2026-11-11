@@ -1,0 +1,194 @@
+=== story.py CHOICES ===
+CHOICES = [
+    ("1", "step back out of the room, up the hill, and drive out of the valley before you can explain it",
+     "quiet"),
+    ("2", "take your place in the circle. become the name the ledger needs. let the lake hold your hand",
+     "folk"),
+    ("3", "turn the page to the instruction side and refuse to keep it. break the keeping",
+     "broken"),
+    ("4", "write into the blank space — not your name, the other one, the one that is waiting",
+     "second"),
+]
+
+
+# The line shown under each ending, before the game exits.
+AFTER_LINE = {
+    "quiet": "FOLK — the valley remembers. thank you for not staying.",
+    "folk": "FOLK — the ledger has your name. thank you for staying.",
+    "broken": "FOLK — the cycle is broken. thank you for being incorrect.",
+    "paid": "FOLK — the name is the cost. the cost is the name. thank you for paying.",
+    "second": "FOLK — the ledger has two names. thank you for the second one.",
+}
+=== story.py advance_chapter ===
+def advance_chapter(s) -> str:
+    """Check if the current chapter's condition is met. If so, set the
+    done_flag, advance s.chapter, and return a short in-world message.
+    Returns "" if no chapter advanced."""
+    ch = current_chapter(s)
+    if ch >= 5:
+        return ""
+    if not chapter_condition_met(s, ch):
+        return ""
+    s.flag(CHAPTERS[str(ch)]["done_flag"])
+    s.chapter = ch + 1
+    next_ch = CHAPTERS[str(ch + 1)]
+    # Pick up what the player just did, so the chapter turn is not a
+    # standalone line but a consequence of the last interaction.
+    prev = context.ref(s)
+    if prev:
+        return (f"\n— the week turns. —\n"
+                f"  {prev}. the valley notes it.\n"
+                f"  chapter {ch + 1}: {next_ch['title']}\n"
+                f"  objective: {next_ch['objective']}")
+    return (f"\n— the week turns. —\n"
+            f"  chapter {ch + 1}: {next_ch['title']}\n"
+            f"  objective: {next_ch['objective']}")
+
+
+# ---------------------------------------------------------------------------
+# ACT FLAVOR — a short line shown when the day advances
+# ---------------------------------------------------------------------------
+ACT_FLAVOR = {
+    1: "Day one. The town is the right shape, in the wrong order.",
+    2: "Day two. The shopkeeper says good morning with the exact right amount of voice.",
+    3: "Day three. The lake is breathing. You have started to believe it.",
+    4: "Day four. Connor says the ledger has your name. Mika says the face is yours.",
+    5: "Day five. The gate on the hill was polished today. The valley is close.",
+    6: "Day six. The town does not speak. The town does not need to. The town is the payment.",
+    7: "Day seven. The night is here. It has always been here.",
+}
+
+# ---------------------------------------------------------------------------
+# ENDINGS
+# ---------------------------------------------------------------------------
+ENDINGS = {
+    "quiet": J([
+        "ENDING — THE QUIET END",
+        "",
+        "You drive out of the valley before you can explain why you are driving.",
+        "The road unwinds. The houses fall behind. The forest falls behind.",
+        "You do not look in the rear-view mirror. This is the correct thing to do.",
+        "You have learned that there are places where 'correct' is the only word that still means something.",
+        "",
+        "You get a new job. A new street. A new name on the paper, and this time",
+        "you remember it.",
+        "",
+        "But some nights, when the streetlights come on too early, you look out the window and the valley is there. It is always there. It is in the back of the light. It is in the order of the houses. It is in the exact right amount of voice in every stranger's good morning.",
+        "",
+        "The valley doesn't sleep. It waits. And it is not angry that you left.",
+=== main.py talk_npc full ===
+def talk_npc(s, who):
+    context.record(s, "talk", who=who, place=s.location)
+    tier = talk_tier(s)
+    # --- new dialogue trees (dialogue.py) take priority when available ---
+    if who == "connor":
+        open_text = dialogue.CONNOR_OPEN.get(tier, dialogue.CONNOR_OPEN["low"])
+        dialogue.run_tree(s, "connor", dialogue.CONNOR_TREE, open_text)
+        s.flag("met_connor")
+    elif who == "mika":
+        open_text = dialogue.MIKA_OPEN.get(tier, dialogue.MIKA_OPEN["low"])
+        dialogue.run_tree(s, "mika", dialogue.MIKA_TREE, open_text)
+        s.flag("met_mika")
+    elif who == "archivist":
+        open_text = dialogue.ARCHIVIST_OPEN.get(tier, dialogue.ARCHIVIST_OPEN["low"])
+        dialogue.run_tree(s, "archivist", dialogue.ARCHIVIST_TREE, open_text)
+        s.flag("met_archivist")
+    elif who == "noah":
+        # Noah uses the raw sanity tier (all 4 tiers are reachable)
+        raw_tier = s.sanity_tier
+        open_text = dialogue.NOAH_OPEN.get(raw_tier, dialogue.NOAH_OPEN["low"])
+        dialogue.run_tree(s, "noah", dialogue.NOAH_TREE, open_text)
+        s.flag("met_noah")
+        # Sanity restore with cooldown: +8 sanity once per day
+        if s.day != s._noah_rest_day:
+            s._noah_rest_day = s.day
+            s.sanity_change(8, "sitting with Noah")
+            render("")
+            render("  the tea is warm. the bench is the right size for two.")
+            render("  you sit. the valley is patient. you are not.")
+    else:
+        # fallback to the old flat lines (only reachable for unknown NPC ids)
+        render("")
+        render("  no one is here. the light is, though.")
+
+    # chapter progression after any conversation
+    msg = story.advance_chapter(s)
+    if msg:
+        render("")
+        render(msg)
+
+    achievements.check_all(s)
+
+
+# ---------------------------------------------------------------------------
+# examining things
+# ---------------------------------------------------------------------------
+
+=== engine.py flag/has/take ===
+    def flag(self, name: str, value: bool = True) -> None:
+        self.flags[name] = value
+
+    def has(self, name: str) -> bool:
+        return bool(self.flags.get(name))
+
+    # -- inventory ----------------------------------------------------------
+    def take(self, item_id: str) -> bool:
+        if item_id not in self.inventory:
+            self.inventory.append(item_id)
+            return True
+        return False
+
+    def has_item(self, item_id: str) -> bool:
+        return item_id in self.inventory
+
+    # -- persistence --------------------------------------------------------
+    def to_dict(self) -> dict:
+        return {
+            "version": 4,
+            "location": self.location,
+            "sanity": self.sanity,
+            "trust": self.trust,
+            "fear": self.fear,
+            "flags": self.flags,
+            "inventory": self.inventory,
+=== music.py play_location ===
+def play_location(loc_id: str) -> bool:
+    """Start music for a location id.
+
+    - Unknown location id: keep the current track (no new player started).
+    - Same track already playing: do NOT restart it.
+    - Different track: stop the old player first, then start the new one.
+    Returns True if a player is running for this location afterwards.
+    """
+    track = LOCATION_TRACKS.get(loc_id)
+    if track is None:
+        return _current_proc is not None and _current_proc.poll() is None
+    if track == _current_track and _current_proc is not None \
+            and _current_proc.poll() is None:
+        return True
+    stop()
+    return _start_player(track)
+
+
+def start(loc_id: str) -> bool:
+    """Start music for the opening location (used at game start)."""
+    return play_location(loc_id)
+
+
+def is_playing() -> bool:
+    return _current_proc is not None and _current_proc.poll() is None
+
+
+def current_track() -> str:
+    return _current_track
+
+
+# ---------------------------------------------------------------------------
+# atexit: normal exit (quit, death, ending, menu quit) always stops the player
+# ---------------------------------------------------------------------------
+
+def _atexit_stop() -> None:
+    stop()
+
+
+atexit.register(_atexit_stop)

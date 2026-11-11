@@ -1,0 +1,196 @@
+
+  ┌────────────────────────────────────────────────────┐
+  │                                                  │
+  │            F O L K                               │
+  │                                                  │
+  │      a folk-horror story in the valley           │
+  │                                                  │
+  │      Das Tal schläft nicht. Es wartet.           │
+  │                                                  │
+  └────────────────────────────────────────────────────┘
+
+    1.  new game
+    2.  continue
+    3.  how to play
+    4.  quit
+
+> You pull into a street that is not on any map you have ever used.
+
+The house is brick, like everything else, but older. The bricks are laid
+in a pattern you cannot name — not herringbone, not bond, something
+between. The front door is dark wood, waxed by someone who is still
+waxing it.
+
+You inherited this. That is what the paper says. You cannot remember the
+name on the paper. You cannot remember the drive. You remember the keys
+in your hand and the smell of the forest at the edge of town and a voice
+in the back of your head saying *correct, correct, correct*.
+
+The valley is behind the house. You can see it from the kitchen window:
+a long, low fold of land that the town does not talk about. The lake is in
+it. The forest is in it. The old castle is in it. The valley does not
+sleep. The valley waits. You know this the way you know your own name,
+though you do not know how you know it.
+
+On the hallway table, in a seal of wax the color of a bruise that healed
+wrong, is a letter. It is addressed to whoever comes next.
+
+It is addressed to you.
+
+> look, to begin.
+
+  how to play
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    travel    type a place: house · forest · lake · schloss · gymnasium · lunuen
+    talk      talk to whoever is standing there (talk <name> for the other one)
+    ask       ask <who> <topic> — ask someone something specific
+    journal   what you have learned and decided
+    examine   touch / read what is here
+    status    where your head is at
+    quit      save and leave for now
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+LÜNEN — THE DARK TOWN
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The town of Lünen is a long, low town that sits in the bottom
+of a valley it does not mention. The houses are brick, the
+streets are narrow, and the streetlights come on at four
+o’clock in the afternoon, every day, whether the sun is out or not.
+
+You know the saying before you’ve heard it. It is on the wall
+of the bakery, in the window of the pharmacy, painted in white
+on the side of the old water tower: "Das Tal schläft nicht.
+Es wartet." The valley doesn’t sleep. It waits.
+
+The people here are not unkind. They are *correct*. They say
+good morning with the exact right amount of voice. They do not
+ask where you are from. They ask when you arrived, and they
+seem to already know the answer, and they seem a little
+disappointed that it matches.
+
+The town is quiet. The streetlights are on. The bakery has
+bread. The butcher has bread. The pharmacy has bread. You
+are not sure which shop you walked into. You are not sure
+you walked into a shop.
+
+  [********************************        ]  80/100  (steady)
+
+  you can:
+         house   the house at the end of the street (your house)
+     gymnasium   Gymnasium Alt-Lünen, two streets over
+        forest   the Cappenberger forest, at the edge of town
+          lake   the Cappenberger lake, across the road
+       schloss   the Cappenberger Schloss, up the hill  (the gate is locked; the archivist keeps the key)
+       journal   what you have learned and decided
+        status   where your head is at
+          quit     save and leave for now
+
+
+> 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+CAPPENBERGER FOREST — CAPPENBERGER BERGE
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Cappenberger forest starts the way a held breath starts:
+quietly, and then suddenly, and then you are already in it
+and you don’t remember the first three steps.
+
+The trees are old. Not old like “planted a long time ago.”
+Old like *they were here before the idea of a forest was
+needed to describe them*. They grow in circles. Not clusters.
+Circles. Perfect, slow, patient circles.
+
+The paths loop. You have walked this path before. You will
+walk it again. The trees are not hostile. They are *correct*
+the way the town is correct. They are where they are supposed
+to be. You are not.
+
+There are marks in the bark. Not carvings. *Impressions* —
+the shape of a hand, or a face, or something that is neither,
+pressed into the wood from the other side. The wood has not
+healed around them. It is waiting to.
+
+The forest is quiet. The trees are old. The paths loop. You
+have walked this path before. You will walk it again. The
+trees are not hostile. They are *correct* the way the town
+is correct. They are where they are supposed to be. You
+are not.
+
+  [********************************        ]  80/100  (steady)
+
+  you can:
+          town   back to the edge of Lünen
+          talk   Connor is here
+    talk {name}   Noah is here (talk <name>)
+    ask <who> <topic>   ask someone something specific
+       examine   Connor’s notebook of dates  
+       journal   what you have learned and decided
+        status   where your head is at
+          quit     save and leave for now
+
+
+> A boy is sitting in the hollow tree, legs swinging, and he is
+counting under his breath. Not counting to ten. Counting *out*
+of the air. He sees you and does not stop counting.
+“Ehh?! You're the new one! I-it's not like I was waiting
+for you or anything! I was just... counting. The valley does
+that. It's very boring, actually. Mou~. I'm Noah. And you are
+going to be my best friend. T-Tch. Don't get the wrong idea,”
+he says, and his face is the exact colour of a tomato, and the
+lake, somewhere behind the trees, ripples once, like it heard
+him, and the ripples are in a shape that is not a ripples.
+
+“Ehh? You want to talk? I-it's not like I was waiting for
+you or anything! I was just... counting. The valley does
+that. It's very boring, actually. Mou~. So. What do you
+want to know? I-it's not like I'm going to tell you
+everything! I'm not a *library*!”
+
+  1. sit down and count with him
+  2. tell him to stop
+  3. ask what the valley is breathing for
+  0. leave
+
+> 
+(the valley's trust in you shifts a little. trust 0 → 1)
+
+(something inside you settles a little further down. sanity 80 → 78)
+You sit down. You count. The numbers are not numbers, not
+at first, but they become numbers, and the counting becomes
+a small, warm, living thing between the two of you. Noah
+looks at you and his face does something you will not be
+able to describe to anyone.
+“T-Tch. You're the first person who's helped me count in a
+while,” he says, and his ears are red, and the lake
+somewhere behind the trees ripples once, and the ripples
+are in a shape that is not a ripples. “The others just
+stop me. Stopping is worse. Stopping is how it gets into
+your head. I-it's not like I'm happy you're here or
+anything!”
+
+  1. ask him what the count is for
+  2. ask him if he is afraid
+  3. thank him and leave
+  0. leave
+
+> 
+(the valley's trust in you shifts a little. trust 1 → 2)
+
+  you can:
+          town   back to the edge of Lünen
+          talk   Connor is here
+    talk {name}   Noah is here (talk <name>)
+    ask <who> <topic>   ask someone something specific
+       examine   Connor’s notebook of dates  
+       journal   what you have learned and decided
+        status   where your head is at
+          quit     save and leave for now
+
+
+> 
+  saved. the valley is patient. come back when you are ready.
+
+  the valley is patient. thank you for playing.
+

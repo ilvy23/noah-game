@@ -1,0 +1,243 @@
+=== story.py check_ending ===
+def check_ending(s):
+    """Return an ending id if the run has to end now, else None.
+
+    The one forced ending: if your head goes completely empty, the valley
+    does not let you keep going. You simply *become* the next line.
+
+    A second one: if you have paid the cost to the archivist and then
+    walked away from the schloss, the valley does not let you keep the
+    name. it takes it back. this is the only ending that can happen
+    *outside* the cellar.
+    """
+    if s.sanity <= 0:
+        return "folk"
+    if s.has("archivist_paid") and s.location != "schloss" and not s.has("made_choice"):
+        return "paid"
+    return None
+
+
+FINAL = J([
+    "The door at the bottom of the stairs is not wood. It is the same",
+    "pattern as the bricks on the house — the thing between herringbone and",
+    "bond, the pattern you could not name. It is warm. It is warm the way a",
+    "door should not be warm, and it is warm in a hand's shape.",
+    "",
+    "You open it with the key. The key does not turn. The key *settles*.",
+    "",
+    "Below: a round room. Not carved, not built — grown, the way the forest",
+    "grows in circles. The walls are lined with the things the town has",
+    "offered over the years, and the offerings are not food, and they are not",
+    "gold. They are *attention*. A chair set with a place no one sat in. A",
+    "window that looks out on the valley from underneath the hill, so the",
+    "lake is a ceiling and the forest is a floor and everything you have ever",
+    "seen in Lünen is arranged here like a sentence.",
+    "",
+    "In the middle of the room, on a plinth of that unnamed brick, is a",
+    "writing. It is the ledger. It is the ritual text. They are the same",
+    "page, and they have always been the same page.",
+    "",
+    "One side holds the names that were fed. The other side holds the",
+    "instruction for feeding them. The valley has kept both, and the valley",
+    "is this room. This room is the keeping. It is the only thing in Lünen",
+    "that is not an accident.",
+    "",
+    "The last name on the page is yours. It is finished. It is not a draft.",
+    "",
+    "There is a blank space under it. It is the right size for a second name.",
+    "",
+    "The valley does not ask. It is patient. You have spent a week wrong —",
+    "in the exact right amount of voice — and now you can be right.",
+])
+
+CHOICES = [
+    ("1", "step back out of the room, up the hill, and drive out of the valley before you can explain it",
+     "quiet"),
+    ("2", "take your place in the circle. become the name the ledger needs. let the lake hold your hand",
+     "folk"),
+    ("3", "turn the page to the instruction side and refuse to keep it. break the keeping",
+     "broken"),
+    ("4", "write into the blank space — not your name, the other one, the one that is waiting",
+     "second"),
+]
+
+
+# The line shown under each ending, before the game exits.
+AFTER_LINE = {
+    "quiet": "FOLK — the valley remembers. thank you for not staying.",
+    "folk": "FOLK — the ledger has your name. thank you for staying.",
+    "broken": "FOLK — the cycle is broken. thank you for being incorrect.",
+    "paid": "FOLK — the name is the cost. the cost is the name. thank you for paying.",
+    "second": "FOLK — the ledger has two names. thank you for the second one.",
+}
+=== music.py play_location ===
+def play_location(loc_id: str) -> bool:
+    """Start music for a location id.
+
+    - Unknown location id: keep the current track (no new player started).
+    - Same track already playing: do NOT restart it.
+    - Different track: stop the old player first, then start the new one.
+    Returns True if a player is running for this location afterwards.
+    """
+    track = LOCATION_TRACKS.get(loc_id)
+    if track is None:
+        return _current_proc is not None and _current_proc.poll() is None
+    if track == _current_track and _current_proc is not None \
+            and _current_proc.poll() is None:
+        return True
+    stop()
+    return _start_player(track)
+
+
+def start(loc_id: str) -> bool:
+    """Start music for the opening location (used at game start)."""
+    return play_location(loc_id)
+
+
+def is_playing() -> bool:
+    return _current_proc is not None and _current_proc.poll() is None
+
+
+def current_track() -> str:
+    return _current_track
+
+
+# ---------------------------------------------------------------------------
+# atexit: normal exit (quit, death, ending, menu quit) always stops the player
+# ---------------------------------------------------------------------------
+
+def _atexit_stop() -> None:
+    stop()
+
+
+atexit.register(_atexit_stop)
+=== main.py talk_npc ===
+def talk_npc(s, who):
+    context.record(s, "talk", who=who, place=s.location)
+    tier = talk_tier(s)
+    # --- new dialogue trees (dialogue.py) take priority when available ---
+    if who == "connor":
+        open_text = dialogue.CONNOR_OPEN.get(tier, dialogue.CONNOR_OPEN["low"])
+        dialogue.run_tree(s, "connor", dialogue.CONNOR_TREE, open_text)
+        s.flag("met_connor")
+    elif who == "mika":
+        open_text = dialogue.MIKA_OPEN.get(tier, dialogue.MIKA_OPEN["low"])
+        dialogue.run_tree(s, "mika", dialogue.MIKA_TREE, open_text)
+        s.flag("met_mika")
+    elif who == "archivist":
+        open_text = dialogue.ARCHIVIST_OPEN.get(tier, dialogue.ARCHIVIST_OPEN["low"])
+        dialogue.run_tree(s, "archivist", dialogue.ARCHIVIST_TREE, open_text)
+        s.flag("met_archivist")
+    elif who == "noah":
+        # Noah uses the raw sanity tier (all 4 tiers are reachable)
+        raw_tier = s.sanity_tier
+        open_text = dialogue.NOAH_OPEN.get(raw_tier, dialogue.NOAH_OPEN["low"])
+        dialogue.run_tree(s, "noah", dialogue.NOAH_TREE, open_text)
+        s.flag("met_noah")
+        # Sanity restore with cooldown: +8 sanity once per day
+        if s.day != s._noah_rest_day:
+            s._noah_rest_day = s.day
+            s.sanity_change(8, "sitting with Noah")
+            render("")
+            render("  the tea is warm. the bench is the right size for two.")
+            render("  you sit. the valley is patient. you are not.")
+    else:
+        # fallback to the old flat lines (only reachable for unknown NPC ids)
+        render("")
+        render("  no one is here. the light is, though.")
+
+    # chapter progression after any conversation
+    msg = story.advance_chapter(s)
+    if msg:
+        render("")
+        render(msg)
+
+    achievements.check_all(s)
+
+
+# ---------------------------------------------------------------------------
+# examining things
+# ---------------------------------------------------------------------------
+
+=== main.py examine_item ===
+def examine_item(s, iid):
+    item = locations.ITEMS[iid]
+    render(item["name"])
+    rule()
+    render(item["text"])
+    s.take(iid)
+    s.sanity_change(-2, "examined " + item["name"])
+
+    # special beats
+    if iid == "letter":
+        s.flag("read_letter")
+    if iid == "ledger":
+        if not s.has("read_ledger"):
+            s.flag("read_ledger")
+            s.sanity_change(-10, "read the ledger")
+        else:
+            render("")
+            render("The last line is different. It is your name, but written")
+            render("*from the other side of the page*.")
+            s.flag("read_ledger_twice")
+            s.sanity_change(-12, "read the ledger again")
+    elif iid == "notebook":
+        s.flag("met_connor")
+    elif iid == "ritual_text":
+        s.flag("has_instruction")
+    elif iid == "key":
+        s.flag("has_key")
+
+    # chapter progression: check if the current chapter's objective is met
+    msg = story.advance_chapter(s)
+    if msg:
+        render("")
+        render(msg)
+
+    achievements.check_all(s)
+    pause()
+
+
+# ---------------------------------------------------------------------------
+# the schloss cellar / the final choice
+# ---------------------------------------------------------------------------
+
+=== locations.py chapter_line ===
+def chapter_line(s, loc_id: str) -> str:
+    """Return a short chapter-specific line for the given location.
+
+    The line picks up the player's last interaction (via context.ref) so
+    the description is a continuation of what just happened, not a
+    standalone line. Returns "" if there is no line for the current
+    chapter."""
+    ch = story.current_chapter(s)
+    lines = CHAPTER_LINES.get(loc_id, {})
+    base = lines.get(ch, "")
+    if not base:
+        return ""
+    prev = context.ref(s)
+    if prev:
+        return f"  ({prev} — and now this.)\n{base}"
+    return base
+
+
+ITEMS: Dict[str, dict] = {
+    "letter": {
+        "name": "the letter from the previous owner",
+        "text": J([
+            "The seal is old wax, the color of a bruise that healed wrong.",
+            "The handwriting is yours. Not like yours. Yours from before.",
+            "",
+            '  "You will arrive on a Tuesday. You did not pick that day, and it will not be kind.',
+            "   I am not warning you. I am the warning, and I am late.",
+            "",
+            "   They will tell you the valley is a place. It is not.",
+            "   It is a debt. The town pays. The house collects.",
+            "",
+            "   When the ledger is opened, do not read the last line twice.",
+            "   The valley reads you back, one line at a time.",
+            "",
+            '   — the previous owner"',
+        ]),
+    },
+    "notebook": {

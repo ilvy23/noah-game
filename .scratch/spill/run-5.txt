@@ -1,0 +1,240 @@
+=== story.py current_chapter ===
+def current_chapter(s) -> int:
+    """Return the first chapter whose done_flag is not set (1..5)."""
+    for i in range(1, 6):
+        if not s.has(CHAPTERS[str(i)]["done_flag"]):
+            return i
+    return 5
+
+
+def chapter_objective(s) -> str:
+    """The objective text for the current chapter."""
+    ch = current_chapter(s)
+    return CHAPTERS[str(ch)]["objective"]
+
+
+def chapter_title(s) -> str:
+    """The title of the current chapter."""
+    ch = current_chapter(s)
+    return CHAPTERS[str(ch)]["title"]
+
+
+def chapter_done(s, ch: int) -> bool:
+    """True if the given chapter is complete."""
+    return s.has(CHAPTERS[str(ch)]["done_flag"])
+
+
+def chapter_condition_met(s, ch: int) -> bool:
+    """True if the current chapter's objective is satisfied.
+
+    The conditions use flags that already exist in the game:
+      ch1: read the letter (examine letter) + met someone (connor/mika/archivist)
+      ch2: talked to Connor (connor_told or connor_notebook_read)
+      ch3: talked to Mika (asked_mika_painting or mika_why)
+      ch4: asked the archivist about the cost + read the ledger
+      ch5: has key + ritual text + ledger read (ritual_unlocked)
+    """
+    if ch == 1:
+        return (s.has("read_letter")
+                and (s.has("met_connor") or s.has("met_mika")
+                     or s.has("met_archivist")))
+    if ch == 2:
+        return (s.has("connor_told") or s.has("connor_notebook_read")
+                or s.has("connor_dates_asked"))
+    if ch == 3:
+        return (s.has("asked_mika_painting") or s.has("mika_why")
+                or s.has("asked_mika_valley"))
+    if ch == 4:
+        return (s.has("asked_archivist_cost") and s.has("read_ledger"))
+    if ch == 5:
+        return ritual_unlocked(s)
+    return False
+
+
+=== story.py advance_chapter ===
+def advance_chapter(s) -> str:
+    """Check if the current chapter's condition is met. If so, set the
+    done_flag, advance s.chapter, and return a short in-world message.
+    Returns "" if no chapter advanced."""
+    ch = current_chapter(s)
+    if ch >= 5:
+        return ""
+    if not chapter_condition_met(s, ch):
+        return ""
+    s.flag(CHAPTERS[str(ch)]["done_flag"])
+    s.chapter = ch + 1
+    next_ch = CHAPTERS[str(ch + 1)]
+    # Pick up what the player just did, so the chapter turn is not a
+    # standalone line but a consequence of the last interaction.
+    prev = context.ref(s)
+    if prev:
+        return (f"\n— the week turns. —\n"
+                f"  {prev}. the valley notes it.\n"
+                f"  chapter {ch + 1}: {next_ch['title']}\n"
+                f"  objective: {next_ch['objective']}")
+    return (f"\n— the week turns. —\n"
+            f"  chapter {ch + 1}: {next_ch['title']}\n"
+            f"  objective: {next_ch['objective']}")
+
+
+# ---------------------------------------------------------------------------
+# ACT FLAVOR — a short line shown when the day advances
+# ---------------------------------------------------------------------------
+ACT_FLAVOR = {
+    1: "Day one. The town is the right shape, in the wrong order.",
+    2: "Day two. The shopkeeper says good morning with the exact right amount of voice.",
+    3: "Day three. The lake is breathing. You have started to believe it.",
+    4: "Day four. Connor says the ledger has your name. Mika says the face is yours.",
+    5: "Day five. The gate on the hill was polished today. The valley is close.",
+    6: "Day six. The town does not speak. The town does not need to. The town is the payment.",
+    7: "Day seven. The night is here. It has always been here.",
+}
+
+# ---------------------------------------------------------------------------
+# ENDINGS
+# ---------------------------------------------------------------------------
+ENDINGS = {
+    "quiet": J([
+        "ENDING — THE QUIET END",
+        "",
+        "You drive out of the valley before you can explain why you are driving.",
+        "The road unwinds. The houses fall behind. The forest falls behind.",
+        "You do not look in the rear-view mirror. This is the correct thing to do.",
+        "You have learned that there are places where 'correct' is the only word that still means something.",
+        "",
+        "You get a new job. A new street. A new name on the paper, and this time",
+        "you remember it.",
+        "",
+        "But some nights, when the streetlights come on too early, you look out the window and the valley is there. It is always there. It is in the back of the light. It is in the order of the houses. It is in the exact right amount of voice in every stranger's good morning.",
+        "",
+        "The valley doesn't sleep. It waits. And it is not angry that you left.",
+        "It is patient. It has been patient for longer than your name has been",
+        "a name.",
+        "",
+        "— you left. you did not stay. the valley is still there. —",
+    ]),
+    "folk": J([
+        "ENDING — THE FOLK END",
+        "",
+        "You stay. Not because you want to. Because *staying* is the shape you",
+        "have been, for a while, in a way you cannot point to.",
+        "",
+        "The valley does not take you. That would be a mistake, and the valley does not make mistakes. The valley *receives* you. The lake holds your hand the way it held the last hand. The forest counts you into the circle, 118, 119, 120. The schloss is under the hill, and the hill is under the schloss, and you are the middle word in a sentence that was written before you had a mouth.",
+        "",
+        "The ledger is updated before dawn. The ink is never the same color",
+        "twice. This year, it is the color of a bruise that healed wrong.",
+        "",
+        "The town continues. The shopkeeper says good morning. The lake is flat.",
+        "The gate is locked. The gate is not locked. It is *answered*.",
+        "",
+        "Somewhere, a letter is being sealed in wax the color of a bruise that",
+=== main.py show_summary ===
+def show_summary(s):
+    """End-of-run summary screen.
+
+    Shows: days survived, places visited, achievements unlocked this run,
+    and current level. Called after a death or an ending.
+    """
+    render("")
+    rule(60)
+    render("  END OF RUN — the valley keeps the count")
+    rule(60)
+    render("")
+    render(f"  days survived          {s.day}")
+    render(f"  places visited         {len(s.visited)}  ({', '.join(s.visited) if s.visited else 'none'})")
+    render(f"  achievements unlocked  {achievements.unlocked_count(s)}/{len(achievements.ACHIEVEMENTS)}")
+    render(f"  level                  {achievements.level(s)}")
+    render("")
+    rule(60)
+    render("")
+
+
+def show_journal(s):
+=== main.py show_journal ===
+def show_journal(s):
+    """The journal command: everything you have learned and decided.
+
+    Displays four categories built from the current game state:
+      · people met   — from s.journal entries with kind='met'
+      · places visited — from s.visited
+      · items found    — from s.inventory
+      · facts learned  — from s.journal entries with kind='learned'
+    """
+    render("")
+    rule(60)
+    render("  JOURNAL — what you have learned and decided")
+    rule(60)
+    render("")
+
+    # --- People met ---
+    render("  PEOPLE MET")
+    met = [e["text"] for e in s.journal if e.get("kind") == "met"]
+    if met:
+        for name in met:
+            render("    · " + name)
+    else:
+        render("    (no one yet)")
+    render("")
+
+    # --- Places visited ---
+    render("  PLACES VISITED")
+    if s.visited:
+        for loc_id in s.visited:
+            loc = locations.LOCATIONS.get(loc_id, {})
+            name = loc.get("name", loc_id)
+            render("    · " + name)
+    else:
+        render("    (nowhere yet)")
+    render("")
+
+    # --- Items found ---
+    render("  ITEMS FOUND")
+    if s.inventory:
+        for iid in s.inventory:
+            item = locations.ITEMS.get(iid, {})
+            name = item.get("name", iid)
+            render("    · " + name)
+    else:
+        render("    (nothing yet)")
+    render("")
+
+    # --- Facts learned ---
+    render("  FACTS LEARNED")
+    learned = [e["text"] for e in s.journal if e.get("kind") == "learned"]
+    if learned:
+        for fact in learned:
+            render("    · " + fact)
+    else:
+        render("    (nothing yet)")
+    render("")
+
+    # --- Other journal entries (decided, death) ---
+    other = [e for e in s.journal if e.get("kind") in ("decided", "death")]
+    if other:
+        render("  OTHER")
+        for e in other:
+            kind = e.get("kind", "")
+            text = e.get("text", "")
+            if kind == "decided":
+                render("    · decided   " + text)
+            elif kind == "death":
+                render("    · died      " + text)
+            else:
+                render("    · " + text)
+        render("")
+
+    render("  chapter  " + str(story.current_chapter(s)) + " — " + story.chapter_title(s))
+    render("  objective  " + story.chapter_objective(s))
+    render("")
+    render("  flags set: " + (", ".join(sorted(s.flags)) if s.flags else "(none)"))
+    render("  trust " + str(s.trust) + "   fear " + str(s.fear))
+    render("")
+    # topics you can still ask about, per NPC
+    for who in ("connor", "mika", "archivist"):
+        topics = sorted(dialogue.ASK_TOPICS.get(who, {}).keys())
+        if topics:
+            render("  ask " + who + ": " + ", ".join(topics))
+    render("")
+
+
+def examine_item(s, iid):

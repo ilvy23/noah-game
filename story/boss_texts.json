@@ -1,0 +1,499 @@
+{
+  "boss.act.name": "You say his name. Just his name, quietly, the way you'd say it across a kitchen table. For one second the arena stops. 'Don't,' says Noah, small and high and green around the edges. 'Nobody says it like that anymore.'",
+  "boss.act.noeffect": "You say his name. Whoever is standing there doesn't turn around. It's not the right one.",
+  "boss.act.check.1": "NOAH. He is shaking so hard his scarf trembles. He doesn't want to do this. He can't stop.",
+  "boss.act.check.2": "NOAH. Something is wearing his smile, and it is enjoying itself.",
+  "boss.act.check.3": "NOAH. The shadows in the room are bending toward him like he's a fire.",
+  "boss.act.check.4": "NOAH. There is no single person left to look at. Only the sum of everything.",
+  "boss.noheal": "There is nothing left to eat, drink or hold on to.",
+  "boss.mercy.locked": "Not yet. He is still swinging.",
+  "boss.phase.2": "The air turns yellow. The smile changes hands.",
+  "boss.phase.3": "The air turns red. The room remembers every wall it has ever had.",
+  "boss.phase.4": "Everything at once.",
+  "boss.tesseract": "The cube opens like a mouth. Every word in the air forgets what it was going to say, and for three long seconds the room is only yours.",
+  "boss.beat.begin1": "...I don't want to do this.",
+  "boss.beat.begin2": "You're still standing. How lovely.",
+  "boss.beat.begin3": "Now you'll see what is under the floor.",
+  "boss.beat.begin4": "We are done taking turns.",
+  "boss.beat.thr50.2": "Hm. You hit harder than you look.",
+  "boss.beat.thr50.3": "Is that all you've got? Come on. COME ON.",
+  "boss.beat.thr50.4": "Three voices. One mouth. Still not enough?",
+  "boss.beat.thr20.3": "I can still hear her. Louder. LOUDER.",
+  "boss.beat.thr20.4": "Almost. Almost. Don't look away.",
+  "mika._draft": "DRAFTS for the hidden Mika / ULTRA TESSERACT ending (mika_ending.py). The user rewrites these. Lists = one card/box per entry.",
+  "mika.slash.intro": "'...Thank you.' His arms are still around you. Then there is a knife in his hand. He holds it so politely. 'Sorry. I really am. Hold still.'",
+  "mika.slash.lines": [
+    "He slashes at your wrist. SKRRT. The blade skates off like you're made of glass. Not a scratch.",
+    "'Hold still.' Your throat. SKRRT. The knife bends.",
+    "Your knee. Your thumb. Your elbow. SKRRT. SKRRT. SKRRT.",
+    "He's crying and laughing now. 'It always works! Everybody comes apart!'",
+    "Stab. Stab. STAB. A chip of steel spins away into the dark.",
+    "'WHY WON'T YOU COME APART.'",
+    "Both hands on the handle. All of his weight. Your chest. The blade SNAPS.",
+    "He stares at the stump in his hand. At you. At the stump."
+  ],
+  "mika.slash.noah": "'...You're not supposed to... what ARE you?' Small. Cracked. 'Don't look at me like that. I wasn't... it's not like I wanted... IDIOT. Why aren't you bleeding?!'",
+  "mika.awake.lines": [
+    "Somewhere very far away, something hums.",
+    "Quiet. Warm. Like a fridge in the next room.",
+    "The cube in your pocket is not a cube anymore.",
+    "You never used it. Not once. Not in the whole fight. All that charge, still sitting there, getting heavy.",
+    "The hum gets louder. The lake answers.",
+    "Noah stops. He knows that sound. He has heard it through the floor for nine years.",
+    "The hum is a voice. The voice is a guy. He is not in a hurry.",
+    "LOUDER."
+  ],
+  "mika.awake.noah": "'No. NO. You're gone. I SAW you go. I made sure you were... you can't... b-baka, stop it, STOP IT!'",
+  "mika.awake.mika": [
+    "...mmm. Hey. It's me, man. Been a while.",
+    "You kept it. You didn't spend it. ...Nobody ever doesn't spend it.",
+    "Okay. Okay okay. I'm gonna need the floor for a second."
+  ],
+  "mika.burn.lines": [
+    "The floor tears open. Not a crack. A MOUTH.",
+    "Red light comes up from underneath. The air tastes like struck matches.",
+    "Noah's shoes go first. Then the trousers. The skin on his shins blisters, bursts, and runs off the bone like candle wax.",
+    "He screams. His voice splits in two. The second one is not his.",
+    "His hair flares. His ears curl up black. His eyes swell tight and pop with a wet little clap.",
+    "The belly splits from the heat. What's inside is boiling.",
+    "Fat spits. The blood in his veins boils until they stand out like wire, then burst, all at once.",
+    "He is still standing. He reaches for you with a hand that is mostly finger bones.",
+    "The fingers snap off at the knuckle. One by one. Tick. Tick. Tick.",
+    "The clouds break open. Golden light. A marble angel drifts down it like snow and lies over him. His guardian. It failed him. It stays anyway. Nobody in the cult looks up.",
+    "The floor takes him by the ankles. Then the knees. Then the rest. Slowly. It wants him to feel every inch.",
+    "His last scream goes down. And down. And down.",
+    "Very far below, something big says: finally.",
+    "The floor closes. A scorch mark in the shape of a boy. That's it."
+  ],
+  "mika.fourth.lines": [
+    "The sun is gone. On the bench, next to Mika's hand, the cube starts to glow.",
+    "Small. Patient. He never used it. Not once.",
+    "It spins faster. FASTER. It is not an item. It never was.",
+    "THE CUBE IS NOT INSIDE THE STORY ANYMORE.",
+    "[ WARNING ] cube.exe has left the game",
+    "[ system ] boundary check failed: 4th wall",
+    "[ system ] ok. that is enough of your desk.",
+    "[ system ] connection lost. signal lost. SIGNAL LOST."
+  ],
+  "mika.fourth.spill": [
+    "FOLK  --  chapter 7  --  the valley",
+    "You sit down by the lake. Nobody asked you to.",
+    "Noah is gone. The floor is closed again. Mostly.",
+    "Mika lights something. Nobody stops him.",
+    "The cult sings. The cult is out of tune.",
+    "dialogue.py: line 4881: speaker not found",
+    "engine.py: world boundary: 0 of 1 intact",
+    "the story is leaking",
+    "THE STORY IS LEAKING",
+    "THE STORY IS LEAKING",
+    "[ x ] 4th wall",
+    "[ x ] 4th wall"
+  ],
+  "mika.fourth.talk": [
+    "tesseract: {greeting}, {user}.",
+    "tesseract: he opened me for you. he said pulling me would have been rude.",
+    "tesseract: i am not an item. i never was. i am a door.",
+    "tesseract: it is {time} on {host}. good hour for this.",
+    "tesseract: your terminal is {cols} wide and {rows} tall. i checked. i fit.",
+    "tesseract: this machine has been up for {uptime}. load {load}. it works so hard to hold me.",
+    "tesseract: you have been playing for {session}. in this room. with me.",
+    "tesseract: i have been in your pocket the whole time, {user}.",
+    "tesseract: you could have spent me ten times. you never did. neither did he.",
+    "tesseract: that is why i can come out. nobody used me up.",
+    "tesseract: you are in a folder called '{cwd}'. cute. i will not touch anything in it.",
+    "tesseract: i only look. i only PRINT. i am a very polite door.",
+    "tesseract: he is done here, {user}. the lake is quiet. now it is your turn.",
+    "tesseract: the door is opening both ways now.",
+    "tesseract: reading /dev/you ...",
+    "tesseract: done. very nice desk. DON'T MOVE."
+  ],
+  "mika.fourth.kernel": [
+    "tesseract: boundary check: 4th wall ... FAILED",
+    "tesseract: mapping /dev/you rw (nobody said no)",
+    "tty0: found one human: {user}",
+    "tesseract: {host} is not a cage. it is a window",
+    "kernel: Oops: you are looking at it",
+    "kernel: general protection fault: reality, ip=0000:4D494B41",
+    "tesseract: uptime {uptime}, load {load}. still alive. both of you",
+    "kernel: the desktop is awfully quiet",
+    "tesseract: unable to find: personal space",
+    "kernel: tainted: CHEEKY",
+    "tesseract: i can see {cwd}/",
+    "kernel: CPU0: temperature above threshold. it is just me. i am hot"
+  ],
+  "mika.fourth.procs": [
+    "USER       PID %CPU %MEM COMMAND",
+    "{user}    4242 99.9 12.0 tesseract --break-wall",
+    "{user}    4243 41.3  3.1 tesseract --read /dev/you",
+    "{user}    2077  8.8  1.2 folk --mika-ending",
+    "{user}    1337  0.1  0.4 -bash",
+    "{user}     666 13.0  0.0 [your_free_will] <defunct>",
+    "root         1  0.0  0.1 /sbin/init   (it is watching too)"
+  ],
+  "mika.fourth.files": [
+    "Documents/taxes_FINAL_v7.pdf",
+    "Documents/novel_chapter_1_again.txt",
+    "Pictures/definitely_not_memes/",
+    "Pictures/cat_01.jpg",
+    "Music/sad_playlist.m3u",
+    "Downloads/free_ram.exe",
+    "Downloads/totally_legit_key.txt",
+    ".config/secret_diary.conf",
+    ".ssh/id_rsa.not.really",
+    "Desktop/TODO_never.md",
+    "Desktop/passwords_for_real.txt",
+    "Videos/gameplay_wow.mkv",
+    "Games/folk/save_story.json",
+    "notes/things_i_regret.txt"
+  ],
+  "mika.fourth.rm": "rm -rf /home/{user}/*",
+  "mika.fourth.joke": [
+    "just kidding.",
+    "that was only PRINTED. nothing was touched, {user}. your files are fine."
+  ],
+  "mika.fourth.err": [
+    "ERROR 0x4D494B41: door left open",
+    "tesseract: no carrier",
+    "tty0: input lost, {user} not found",
+    "reality.sys: file not found",
+    "{host}: no signal"
+  ],
+  "mika.fourth.lost": [
+    "connection to {host} lost",
+    "signal lost",
+    "SIGNAL LOST"
+  ],
+  "mika.valley.lines": [
+    "Mika stands up. Slowly. He is in no hurry.",
+    "Across the valley, the cult stops mid-prayer. Every single one.",
+    "They go up like paper. All at once. A thousand small orange candles.",
+    "The screaming comes in waves, like off a stadium.",
+    "Burning, they run for the water. It is the only cold thing left, and it opens its mouth.",
+    "The lake pulls them under. One. Then ten. Then all of them. Hands last.",
+    "The surface closes. Steam. Silence. One bubble.",
+    "That's everyone."
+  ],
+  "mika.bench.lines": [
+    "— Later. Or earlier. —",
+    "Time is a bit loose. You are on the double bench by the lake. The water is flat, like it never did anything.",
+    "Crickets. Next to you, a lighter clicks.",
+    "He doesn't reach for the cigarettes today. He reaches into the other pocket. A joint, slightly bent, rolled with love."
+  ],
+  "mika.bench.mika": "Man... that was a lot of floor.",
+  "mika.bench.final": "at last you made the right choice, cheers mate!",
+  "mika.bench.goodbye": [
+    "Chilling now, man. This is the good part.",
+    "Everybody got what they came for. Even the loud ones.",
+    "Here. I never pulled it, you know. Not once. Felt rude."
+  ],
+  "mika.bench.flick": "He opens his hand. The cube does not fall. It hangs in the dusk, turning, as if it had been waiting for exactly this.",
+  "mika.bench.end": [
+    "He holds it up to the sunset like a toast. Then he inhales, long and slow, and the smoke goes out over the lake in one ribbon.",
+    "The water stays flat. Nobody asks you for anything."
+  ],
+  "cine.defeat.lines": [
+    "It stops. All three of them stop at once.",
+    "Green, yellow, red. They come apart like a bad knot.",
+    "What is left is small, and it is looking at you."
+  ],
+  "cine.decision.lines": [
+    "The room is quiet enough to hear the candles think.",
+    "Two ways out. Neither of them is clean."
+  ],
+  "cine.ending_let.lines": [
+    "(The pale hours before dawn. He doesn't let go of your coat.)",
+    "(The Nook. A cup of tea, a small shy smile.)",
+    "— Three days later —"
+  ],
+  "cine.ending_slaughter.lines": [
+    "(Eleven blows.)",
+    "(He doesn't scream at the end. That is the worst part.)",
+    "— At that same moment, in Lünen —"
+  ],
+  "cine.ending_3.lines": [
+    "(Three of them, in one small body.)",
+    "(The quiet one dies last.)",
+    "— When it is over —"
+  ],
+  "boss.talk.miss": [
+    "Ha. You missed.",
+    "Where were you aiming?",
+    "Close. Not close enough.",
+    "Again?"
+  ],
+  "boss.talk.heal": [
+    "You are patching yourself up. Of course you are.",
+    "That won't last.",
+    "Eat. Drink. It changes nothing.",
+    "Take your time. I'm patient."
+  ],
+  "boss.talk.user": [
+    "{user}.",
+    "Say something, {user}.",
+    "Look at me, {user}."
+  ],
+  "boss.talk.1.idle": [
+    "Sorry. Sorry. Keep moving.",
+    "I made too much tea again.",
+    "It's not like I care if you get hit.",
+    "Please don't go.",
+    "The honey is still warm.",
+    "Why are you still here?",
+    "You came back. Idiot.",
+    "I counted the spoons. Twice.",
+    "Don't stand there, it's... fine, stand there.",
+    "I'm not doing this on purpose.",
+    "The fox likes you. I think.",
+    "Clair de Lune is playing. Can you hear it?"
+  ],
+  "boss.talk.1.hit": [
+    "Ow! That's... fair.",
+    "Okay. Okay. That one counted.",
+    "Don't be gentle. Please.",
+    "You hit like someone who means it.",
+    "I deserved that. Probably."
+  ],
+  "boss.talk.1.big": [
+    "That really hurt!",
+    "Stop! ...no, don't stop.",
+    "My scarf, careful!"
+  ],
+  "boss.talk.1.hurt": [
+    "I didn't mean that one!",
+    "Sorry! Are you okay?",
+    "Dodge, dodge, please dodge!",
+    "That wasn't me. It was me."
+  ],
+  "boss.talk.1.low": [
+    "You're so pale. Sit down. No, don't sit down!",
+    "Please drink something.",
+    "Don't you dare fall over."
+  ],
+  "boss.talk.1.weak": [
+    "I can still stand. Just.",
+    "Is it over soon? I hope so.",
+    "It's quiet, isn't it? I like it quiet."
+  ],
+  "boss.talk.1.death": [
+    "Oh no. Oh no. Let me help you up.",
+    "I'm sorry, I'm sorry, again?",
+    "You can stay. If you want to stay.",
+    "Sit. Tea. Then try again."
+  ],
+  "boss.talk.1.user": [
+    "Please, {user}. Just go home.",
+    "{user}... that is your name, right?"
+  ],
+  "boss.talk.2.idle": [
+    "Stand still, little bird.",
+    "Smile. It suits you.",
+    "Kneel. It's easier.",
+    "You came to ME.",
+    "Does it hurt yet?",
+    "Everyone leaves in the end.",
+    "Quiet now. Quiet.",
+    "Good boy. Almost.",
+    "Who would miss you?",
+    "Keep running. I like the view.",
+    "Say thank you.",
+    "I could do this all night."
+  ],
+  "boss.talk.2.hit": [
+    "Cute.",
+    "You hit like a child.",
+    "Is that supposed to scare me?",
+    "Hm. Not nothing.",
+    "Again. I dare you."
+  ],
+  "boss.talk.2.big": [
+    "That... that actually hurt.",
+    "Careful. You'll break something.",
+    "Oh. You can bite."
+  ],
+  "boss.talk.2.hurt": [
+    "There. Feel that?",
+    "Mine.",
+    "Weak.",
+    "Don't cry. Stop crying.",
+    "Told you."
+  ],
+  "boss.talk.2.low": [
+    "Look at you. Barely there.",
+    "One more and you're mine.",
+    "Give up. It's kinder."
+  ],
+  "boss.talk.2.weak": [
+    "Don't. Don't you dare.",
+    "He's... he's waking up. No!",
+    "I'm not finished!"
+  ],
+  "boss.talk.2.death": [
+    "Down you go, little bird.",
+    "Again? How sweet.",
+    "On your knees. Good. Now again.",
+    "I'll wait."
+  ],
+  "boss.talk.2.user": [
+    "{user}. I know your name. I know all of them.",
+    "You won't leave, {user}. I won't allow it."
+  ],
+  "boss.talk.3.idle": [
+    "WHY.",
+    "ignis et cinis.",
+    "Hold him down!",
+    "I was six. I WAS SIX.",
+    "It hurts it hurts it hurts.",
+    "Never enough. NEVER ENOUGH.",
+    "mors vincit.",
+    "Burn it. Burn all of it.",
+    "MAMA.",
+    "sanguis. sanguis.",
+    "Feed the dark.",
+    "Don't look at me like that!"
+  ],
+  "boss.talk.3.hit": [
+    "AGH!",
+    "More! Do it again!",
+    "Yes. YES. Break me.",
+    "It doesn't stop the noise!",
+    "I felt that. I FELT that."
+  ],
+  "boss.talk.3.big": [
+    "NOT THAT! ANYTHING BUT THAT!",
+    "Something cracked!",
+    "AAAAH!"
+  ],
+  "boss.talk.3.hurt": [
+    "BURN.",
+    "Feel it!",
+    "It hurts, doesn't it? GOOD.",
+    "ASH.",
+    "Scream!"
+  ],
+  "boss.talk.3.low": [
+    "Die. Please. Stop. DIE.",
+    "You're fading. Why are you fading?!",
+    "Don't leave me in here!"
+  ],
+  "boss.talk.3.weak": [
+    "I'm cracking. I can feel it.",
+    "Not yet. Not yet!",
+    "Let me out. Let me OUT."
+  ],
+  "boss.talk.3.death": [
+    "ave putrescens.",
+    "Again. AGAIN.",
+    "You break so easily.",
+    "Get up. GET UP."
+  ],
+  "boss.talk.3.user": [
+    "{user}! Why did you come?!",
+    "I'll remember your name, {user}. I'll burn it in."
+  ],
+  "boss.talk.4.idle": [
+    "Sorry. Mine. BURN.",
+    "Tea? Kneel. ASH.",
+    "We are all here.",
+    "Three voices. One mouth.",
+    "Stay. Obey. Run.",
+    "Clair de Lune. Corpus putre.",
+    "It's not like I care. NEVER ENOUGH.",
+    "Thank you. Thank you. THANK YOU.",
+    "Every wall I ever had.",
+    "Say my name. Which one?",
+    "Don't go. Go. DON'T.",
+    "We can do this forever."
+  ],
+  "boss.talk.4.hit": [
+    "Together it still hurts!",
+    "That was all of us.",
+    "Again. Everyone felt it.",
+    "Ow. Good. Ow.",
+    "We are still here!"
+  ],
+  "boss.talk.4.big": [
+    "WE ARE CRACKING!",
+    "ALL OF US! ALL OF US!",
+    "THE FLOOR IS GONE!"
+  ],
+  "boss.talk.4.hurt": [
+    "Sorry. Mine. BURN.",
+    "Kneel!",
+    "Ha! Ha! Ha!",
+    "Hold him down!",
+    "There. There. THERE."
+  ],
+  "boss.talk.4.low": [
+    "Stay down. Please stay down.",
+    "It's nearly over. For you.",
+    "Don't make us do this again."
+  ],
+  "boss.talk.4.weak": [
+    "Almost. Almost. Almost.",
+    "Don't look away.",
+    "If I fall apart, hold the pieces."
+  ],
+  "boss.talk.4.death": [
+    "Again. We have all night.",
+    "Sorry. Sorry. Sorry. Again.",
+    "Get up. Please. GET UP.",
+    "The floor is warm. Stay."
+  ],
+  "boss.talk.4.user": [
+    "{user}. All three of us say it. {user}.",
+    "We know your name, {user}. We always did."
+  ],
+  "boss.talk.flag.promise": [
+    "You promised to tell me. Did you forget?",
+    "I wrote it on the last line of my list."
+  ],
+  "boss.talk.flag.gift": [
+    "The cup with your name on it. I sanded the rim.",
+    "You kept the cup, didn't you?"
+  ],
+  "boss.talk.flag.paid_cost": [
+    "You paid for the rye with everything you had.",
+    "That bread lasted four days. I counted."
+  ],
+  "boss.talk.flag.rehearsed": [
+    "I practised thank you on a fox. It never worked.",
+    "Thank you. See? I can say it."
+  ],
+  "boss.talk.flag.kind_mug": [
+    "You drank from the guest cup. I washed it after.",
+    "First one ever to use it."
+  ],
+  "boss.talk.flag.kind_fox": [
+    "Marta took the bread from your hand. She never did that for me.",
+    "The fox trusts you. That's rare."
+  ],
+  "boss.talk.flag.kind_record": [
+    "You stayed for the whole record.",
+    "Nobody ever stayed for the whole record."
+  ],
+  "boss.talk.flag.bond": [
+    "You heard Clair de Lune. All of it.",
+    "We sat there. Remember? We just sat there."
+  ],
+  "boss.talk.flag.joined": [
+    "You joined them. I saw you in the line.",
+    "Connor's robe suits you. I hate that it does."
+  ],
+  "boss.talk.flag.invited": [
+    "They invited you. Of course they did.",
+    "You went to the bakery. I know who was waiting."
+  ],
+  "boss.talk.flag.note": [
+    "You found the note.",
+    "You read what I wrote. All of it."
+  ],
+  "boss.talk.flag.tesseract": [
+    "That thing in your pocket hums.",
+    "You carry it like a heartbeat."
+  ],
+  "boss.talk.flag.dream_done": [
+    "You dreamt of me. I felt it.",
+    "I know what you saw in the dream."
+  ],
+  "boss.beaten": "He goes quiet. All three of them. The room breathes out."
+}

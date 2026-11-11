@@ -1,0 +1,59 @@
+tests/test_engine.py:24:    assert s.flags == {}
+tests/test_hint.py:84:    s.flags["read_ledger"] = True
+tests/test_hint.py:156:    s.flags["read_ledger"] = True
+tests/test_hint.py:167:    s.flags["ch1_done"] = True
+tests/test_hint.py:173:    s.flags["ch1_done"] = True
+tests/test_hint.py:174:    s.flags["ch2_done"] = True
+tests/test_hint.py:180:    s.flags["ch1_done"] = True
+tests/test_hint.py:181:    s.flags["ch2_done"] = True
+tests/test_hint.py:182:    s.flags["ch3_done"] = True
+tests/test_hint.py:234:    s.flags["read_ledger"] = True
+tests/test_hint.py:244:    s.flags["ch1_done"] = True
+tests/test_hint.py:250:    s.flags["ch1_done"] = True
+tests/test_hint.py:251:    s.flags["ch2_done"] = True
+tests/test_hint.py:257:    s.flags["ch1_done"] = True
+tests/test_hint.py:258:    s.flags["ch2_done"] = True
+tests/test_hint.py:259:    s.flags["ch3_done"] = True
+tests/test_hint.py:265:    s.flags["ch1_done"] = True
+tests/test_hint.py:266:    s.flags["ch2_done"] = True
+tests/test_hint.py:267:    s.flags["ch3_done"] = True
+tests/test_hint.py:268:    s.flags["asked_archivist_cost"] = True
+tests/test_hint.py:279:    s.flags["noah_ally"] = True
+tests/test_hint.py:280:    s.flags["read_ledger"] = True
+tests/test_hint.py:300:    s.flags["read_ledger"] = True
+tests/test_achievements.py:82:    s.flags["achievements"] = []
+tests/test_achievements.py:88:    s.flags["achievements"] = ["first_steps"]
+tests/test_achievements.py:94:    s.flags["achievements"] = ["first_steps", "met_noah"]
+tests/test_achievements.py:100:    s.flags["achievements"] = ["first_steps", "met_noah", "met_connor"]
+tests/test_achievements.py:106:    s.flags["achievements"] = ["first_steps", "met_noah", "met_connor", "met_mika"]
+tests/test_achievements.py:112:    s.flags["achievements"] = [a["id"] for a in achievements.ACHIEVEMENTS]
+tests/test_achievements.py:119:    s.flags["achievements"] = ["first_steps", "met_noah"]
+tests/test_achievements.py:129:    s.flags["achievements"] = list(ids)
+tests/test_achievements.py:140:    assert "first_steps" in s.flags["achievements"]
+tests/test_achievements.py:156:    ids = s.flags["achievements"]
+tests/test_achievements.py:194:    s.flags["achievements"] = ["met_noah"]  # already unlocked
+tests/test_achievements.py:209:    s.flags["achievements"] = ["met_noah"]
+tests/test_achievements.py:235:    s.flags["achievements"] = ["met_noah"]
+tests/test_achievements.py:253:    s.flags["achievements"] = ["met_noah", "met_connor", "first_steps"]
+tests/test_achievements.py:272:    s.flags["achievements"] = ["first_steps"]
+tests/test_achievements.py:290:    assert s.flags.get("achievements", []) == []
+tests/test_save_migration.py:48:    assert s.flags == d["flags"]
+tests/test_save_migration.py:107:    assert s.flags == {}
+tests/test_save_migration.py:225:    assert s.flags == d["flags"]
+achievements.py:84:        "check": lambda s: s.flags.get("ending") == "quiet",
+achievements.py:90:        "check": lambda s: s.flags.get("ending") == "folk",
+achievements.py:96:        "check": lambda s: s.flags.get("ending") == "broken",
+achievements.py:102:        "check": lambda s: s.flags.get("ending") == "second",
+achievements.py:108:        "check": lambda s: s.flags.get("ending") == "paid",
+achievements.py:114:        "check": lambda s: s.flags.get("death_collapse"),
+achievements.py:120:        "check": lambda s: s.flags.get("death_counting"),
+achievements.py:126:        "check": lambda s: s.flags.get("death_ledger"),
+achievements.py:132:        "check": lambda s: s.flags.get("death_forest"),
+achievements.py:138:        "check": lambda s: s.flags.get("death_lake"),
+achievements.py:144:        "check": lambda s: s.flags.get("death_paid"),
+achievements.py:180:    unlocked = s.flags.get("achievements", [])
+achievements.py:195:    unlocked = s.flags.setdefault("achievements", [])
+achievements.py:213:    unlocked = set(s.flags.get("achievements", []))
+.scratch/verify_ending.py:107:    print(f"Flags: {s.flags}")
+.scratch/debug_tiers/achievements.py:84:        "check": lambda s: s.flags.get("ending") == "quiet",
+.scratch/debug_tiers/achievements.py:90:        "

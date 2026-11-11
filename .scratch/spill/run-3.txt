@@ -1,0 +1,171 @@
+=== State.has/flag/take ===
+170:    def flag(self, name: str, value: bool = True) -> None:
+173:    def has(self, name: str) -> bool:
+177:    def take(self, item_id: str) -> bool:
+183:    def has_item(self, item_id: str) -> bool:
+=== story.py advance_chapter ===
+73:def current_chapter(s) -> int:
+125:def advance_chapter(s) -> str:
+300:    for key, desc, ending in CHOICES:
+365:CHOICES = [
+=== main.py offer_final ===
+def offer_final(s):
+    """Shown when you go back to the schloss with everything in place."""
+    if not story.ritual_unlocked(s):
+        return False
+    if s.has("made_choice"):
+        return False
+    render(story.FINAL)
+    render("")
+    # Noah's flags matter: concrete story outcomes
+    if s.has("noah_ally"):
+        render("")
+        render("  Noah is at the bottom of the stairs. He is holding a mug.")
+        render("  The mug is warm. The mug is not warm. The mug is *there*.")
+        render("")
+        render("  \u201cI-it's not like I was waiting for you or anything!\u201d")
+        render("  \u201cI was just... making tea. The kettle was already on.\u201d")
+        render("  \u201cYou can have a sip. T-Tch. Don't get the wrong idea.\u201d")
+        render("")
+        s.sanity_change(10, "Noah's tea at the schloss")
+    if s.has("noah_hurt"):
+        render("")
+        render("  Noah is at the bottom of the stairs. He is not holding a mug.")
+        render("  The mug is in. The mug is not in. The mug is *there*.")
+        render("")
+        render("  \u201cI-it's not like I'm angry or anything!\u201d")
+        render("  \u201cI was just... sitting. The bench was already here.\u201d")
+        render("  \u201cYou can sit too. T-Tch. Don't get the wrong idea.\u201d")
+        render("")
+    for key, desc, ending in story.available_choices(s):
+        render(f"  {key}.  {desc}")
+    render("")
+    choice = ask(">")
+    for key, desc, ending in story.available_choices(s):
+        if choice.startswith(key):
+            context.record(s, "choice", label=desc, place="schloss")
+            s.flag("made_choice", True)
+            s.flag("ending", ending)
+            achievements.check_all(s)
+            return True
+    render("")
+    render("  the valley does not repeat the question. you may try again.")
+    return False
+
+
+# ---------------------------------------------------------------------------
+# core loop
+# ---------------------------------------------------------------------------
+
+def status(s):
+=== main.py show_location ===
+def show_location(s):
+    loc = locations.LOCATIONS[s.location]
+    render("")
+    rule(60)
+    render(loc["name"].upper())
+    rule(60)
+    render("")
+    if s.location == "nook":
+        import noah
+        render(noah.place_text(s))
+        render("")
+    else:
+        for para in loc["base"]:
+            render(para)
+            render("")
+    tier = s.sanity_tier
+    if tier in ("thin", "low", "critical"):
+        for para in loc.get("thin", []):
+            render(para)
+            render("")
+    if tier in ("low", "critical"):
+        for para in loc.get("low", []):
+            render(para)
+            render("")
+
+    # chapter-specific line
+    ch_line = locations.chapter_line(s, s.location)
+    if ch_line:
+        render(ch_line)
+        render("")
+
+    # status strip
+    fill = int(40 * s.sanity / 100)
+    bar = "[" + "*" * fill + " " * (40 - fill) + "]"
+    render(f"  {bar}  {s.sanity}/100  ({s.sanity_tier})")
+
+
+def show_reminder(s):
+=== dialogue.py run_tree ===
+def run_tree(s, who: str, tree: Dict[str, dict], open_text: str) -> None:
+    """Drive a choice-based dialogue tree. `who` is the NPC id (connor, mika,
+    archivist, noah). `tree` is the node dict. `open_text` is the
+    tier-appropriate opening line. Returns when the player reaches a
+    terminal node (next_id is None) or types 'leave'."""
+    render(open_text)
+    render("")
+    # Pick up the player's last interaction, so the opening is a
+    # continuation of what just happened instead of a standalone line.
+    prev = context.ref(s)
+    if prev:
+        render(f"  (you {prev}; {context.who_name(who).lower()} is still here.)")
+        render("")
+    # chapter-specific line: shown after the tier opening, before the tree
+    ch = story.current_chapter(s)
+    ch_map = {"connor": CONNOR_CHAPTER, "mika": MIKA_CHAPTER,
+              "archivist": ARCHIVIST_CHAPTER, "noah": NOAH_CHAPTER}.get(who)
+    if ch_map and ch in ch_map:
+        render(ch_map[ch])
+        render("")
+
+    node_id = "n1"
+    while node_id is not None:
+        node = tree[node_id]
+        render(node["text"])
+        render("")
+        for i, (label, next_id, effects) in enumerate(node["choices"], 1):
+            render(f"  {i}. {label}")
+        render("  0. leave")
+        render("")
+        choice = input("> ").strip().lower()
+        if choice in ("", "0", "leave", "quit", "q"):
+            # player leaves the conversation early
+            s.journal_add("decided", f"left {who} mid-conversation")
+            return
+        try:
+            n = int(choice)
+        except ValueError:
+            render("")
+            render("  (you do not know what to do with that. the valley does.)")
+            continue
+        if not (1 <= n <= len(node["choices"])):
+            render("")
+            render("  (you do not know what to do with that. the valley does.)")
+            continue
+        label, next_id, effects = node["choices"][n - 1]
+        context.record(s, "choice", who=who, label=label, place=s.location)
+        # apply effects
+        if effects.get("flag"):
+            s.flag(effects["flag"])
+        if effects.get("trust"):
+            s.trust_change(effects["trust"])
+        if effects.get("fear"):
+            s.fear_change(effects["fear"])
+        if effects.get("sanity"):
+            s.sanity_change(effects["sanity"])
+        if effects.get("learned"):
+            s.journal_add("learned", effects["learned"])
+        if effects.get("decided"):
+            s.journal_add("decided", effects["decided"])
+        node_id = next_id
+
+
+=== characters.py structure ===
+14:NL = "\n"
+17:def J(lines):
+25:CONNOR_HELLO = [
+60:CONNOR_TALK = {
+210:MIKA_HELLO = [
+243:MIKA_TALK = {
+354:MIKA_JOURNAL = [

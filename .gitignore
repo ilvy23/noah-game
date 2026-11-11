@@ -1,0 +1,9 @@
+__pycache__/
+.pytest_cache/
+save.json
+save_story.json
+soundtracks/*.flac
+soundtracks/*.mp3
+soundtracks/*.ogg
+soundtracks/lyrics/
+soundtracks/SOURCES.txt

@@ -1,0 +1,67 @@
+{
+  "default": [
+    "game-1",
+    "game-2"
+  ],
+  "fallback": [
+    "town",
+    "forest",
+    "nook"
+  ],
+  "strange_places": [
+    "schloss",
+    "keller"
+  ],
+  "strange": {
+    "tape": "strange-tape",
+    "track": "strange"
+  },
+  "noah": {
+    "main": "noa-main",
+    "alt": "noa-alt",
+    "mood": "noa-mood",
+    "rip": "noa-rip",
+    "boss": "boss-noa"
+  },
+  "mika": {
+    "smoke": "mika-smoke",
+    "track": "mika"
+  },
+  "connor": {
+    "track": "connor"
+  },
+  "endings": {
+    "let-it-live": "ending-let-it-live",
+    "slaughter-it": "ending-slaughter-it",
+    "ending-3": "ending-3",
+    "mika-ultra": "mika"
+  },
+  "endings_special": {
+    "mika-ultra": "ending-special"
+  },
+  "fade": 2.0,
+  "boss_intro_seconds": 52,
+  "places": {
+    "lunuen": "lunuen",
+    "wald": "wald"
+  },
+  "scenes": {
+    "keller": "keller",
+    "traum": "traum",
+    "clair": "noah-clair"
+  },
+  "mika_ending": {
+    "awakens": "mika-awakens",
+    "noah-burns": "noah-burns",
+    "fourth-wall": "fourth-wall",
+    "valley-burns": "valley-burns"
+  },
+  "noah_burns_song": {
+    "file": "noah-burns-song",
+    "start": 135.0,
+    "end": 210.0,
+    "fade_in": 11.0,
+    "fade_out": 5.0,
+    "lyrics": "noah-burns-song"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "location": "forest",
+  "sanity": 77,
+  "flags": {
+    "achievements": [],
+    "met_noah": true,
+    "connor_lake_forgot": true,
+    "connor_notebook_read": true,
+    "connor_told": true,
+    "met_connor": true
+  },
+  "inventory": [],
+  "visited": [
+    "lunuen",
+    "nook",
+    "forest"
+  ],
+  "day": 3,
+  "night": false
+}

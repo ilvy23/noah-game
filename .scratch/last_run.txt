@@ -1,0 +1,109 @@
+--- line 371 ---
+369: # ===========================================================================
+370: 
+371: def test_talk_noah_all_tiers(tmp_path):
+372:     """`talk noah` must work at every sanity tier (steady, thin, low,
+373:     critical) and print a unique opening line for each tier."""
+374:     _copy_game(tmp_path)
+375:     tiers = [(80, "steady"), (50, "thin"), (30, "low"), (10, "critical")]
+376:     seen_openings = []
+377:     for sanity, tier_name in tiers:
+378:         save = _save_with(location="nook", sanity=sanity, seen=["lunuen", "nook"])
+379:         _write_temp_save(tmp_path, save)
+380:         lines = ["", "talk noah", "leave", "q"]
+381:         out, err, rc = _run_game(tmp_path, lines)
+382:         assert rc == 0, f"game crashed at tier {tier_name}: {err}"
+383:         assert "Noah" in out, f"Noah not found in output at tier {tier_name}"
+384:         # capture the opening line: the first non-empty line of the tier text
+385:         # (the first non-empty line after the location header)
+386:         lines_out = out.split("\n")
+387:         opening = None
+388:         in_tier = False
+389:         for line in lines_out:
+390:             stripped = line.strip()
+391:             if "Noah's nook" in stripped or "the nook" in stripped:
+392:                 in_tier = True
+393:                 continue
+394:             if in_tier and stripped and not stripped.startswith(">") and not stripped.startswith("") and not stripped.startswith("you can") and not stripped.startswith("saved.") and not stripped.startswith("the valley") and not stripped.startswith("(you do not know") and not stripped.startswith("town") and not stripped.startswith("forest") and not stripped.startswith("talk") and not stripped.startswith("ask") and not stripped.startswith("journal") and not stripped.startswith("status") and not stripped.startswith("quit") and not stripped.startswith("look") and not stripped.startswith("hint") and not stripped.startswith("achievements") and not stripped.startswith("leave") and not stripped.startswith("go") and not stripped.startswith("move") and not stripped.startswith("examine") and not stripped.startswith("take") and not stripped.startswith("use") and not stripped.startswith("read") and not stripped.startswith("open") and not stripped.startswith("close") and not stripped.startswith("push") and not stripped.startswith("pull") and not stripped.startswith("climb") and not stripped.startswith("jump") and not stripped.startswith("run") and not stripped.startswith("walk") and not stripped.startswith("sit") and not stripped.startswith("stand") and not stripped.startswith("lie") and not stripped.startswith("sleep") and not stripped.startswith("wake") and not stripped.startswith("eat") and not stripped.startswith("drink") and not stripped.startswith("smell") and not stripped.startswith("taste") and not stripped.startswith("touch") and not stripped.startswith("feel") and not stripped.startswith("hear") and not stripped.startswith("listen") and not stripped.startswith("watch") and not stripped.startswith("observe") and not stripped.startswith("study") and not stripped.startswith("inspect") and not stripped.startswith("check") and not stripped.startswith("verify") and not stripped.startswith("confirm") and not stripped.startswith("validate") and not stripped.startswith("test") and not stripped.startswith("debug") and not stripped.startswith("fix") and not stripped.startswith("repair") and not stripped.startswith("build") and not stripped.startswith("create") and not stripped.startswith("make") and not stripped.startswith("do") and not stripped.startswith("try") and not stripped.startswith("attempt") and not stripped.startswith("start") and not stripped.startswith("begin") and not stripped.startswith("end") and not stripped.startswith("stop") and not stripped.startswith("finish") and not stripped.startswith("complete") and not stripped.startswith("done") and not stripped.startswith("ready") and not stripped.startswith("set") and not stripped.startswith("reset") and not stripped.startswith("clear") and not stripped.startswith("clean") and not stripped.startswith("wipe") and not stripped.startswith("erase") and not stripped.startswith("delete") and not stripped.startswith("remove") and not stripped.startswith("add") and not stripped.startswith("insert") and not stripped.startswith("append") and not stripped.startswith("prepend") and not stripped.startswith("sort") and not stripped.startswith("order") and not stripped.startswith("arrange") and not stripped.startswith("organize") and not stripped.startswith("group") and not stripped.startswith("categorize") and not stripped.startswith("classify") and not stripped.startswith("label") and not stripped.startswith("tag") and not stripped.startswith("mark") and not stripped.startswith("note") and not stripped.startswith("record") and not stripped.startswith("log") and not stripped.startswith("track") and not stripped.startswith("follow") and not stripped.startswith("trace") and not stripped.startswith("monitor"):
+395:                 opening = stripped
+396:                 break
+397:         if opening:
+398:             seen_openings.append((tier_name, opening))
+399:     # all four tiers must have produced a unique opening
+400:     openings = [o for _, o in seen_openings]
+401:     assert len(openings) == 4, f"expected 4 openings, got {len(openings)}"
+402:     assert len(set(openings)) == len(openings), f"duplicate openings: {openings}"
+403: 
+404: 
+405: def test_look_nook_all_tiers_and_chapters(tmp_path):
+406:     """`look` at the nook must produce different text at every tier and
+407:     chapter combination."""
+408:     _copy_game(tmp_path)
+409:     tiers = [80, 50, 30, 10]
+410:     chapters = [1, 2, 3, 4, 5]
+411:     seen_texts = set()
+412:     for sanity in tiers:
+413:         for chapter in chapters:
+414:             save = _save_with(
+415:                 location="nook", sanity=sanity, chapter=chapter,
+416:                 seen=["lunuen", "nook"],
+417:             )
+418:             _write_temp_save(tmp_path, save)
+419:             lines = ["", "look", "q"]
+420:             out, err, rc = _run_game(tmp_path, lines)
+421:             assert rc == 0, f"game crashed at sanity={sanity} chapter={chapter}: {err}"
+
+--- line 439 ---
+437: 
+438: 
+439: def test_talk_noah_restores_sanity_once_per_day(tmp_path):
+440:     """Talking to Noah must restore sanity once per day (mechanics only,
+441:     no on-screen message). The second talk the same day must NOT restore."""
+442:     _copy_game(tmp_path)
+443:     save = _save_with(location="nook", sanity=50, seen=["lunuen", "nook"])
+444:     _write_temp_save(tmp_path, save)
+445:     lines = ["", "talk noah", "leave", "talk noah", "leave", "q"]
+446:     out, err, rc = _run_game(tmp_path, lines)
+447:     assert rc == 0, f"game crashed: {err}"
+448:     # sanity must have been restored exactly once (50 → 58, not 50 → 66)
+449:     save_path = tmp_path / "save.json"
+450:     with open(save_path, "r", encoding="utf-8") as f:
+451:         data = json.load(f)
+452:     assert data["sanity"] == 58, \
+453:         f"expected sanity 58 after one restore, got {data['sanity']}"
+454: 
+455: 
+456: def test_noah_ally_shown_at_final(tmp_path):
+457:     """With noah_ally set, the final scene at the schloss must show Noah
+458:     with a mug and restore +10 sanity."""
+459:     _copy_game(tmp_path)
+460:     save = _save_with(
+461:         location="schloss", sanity=80,
+462:         flags={"noah_ally": True, "read_ledger": True},
+463:         inventory=[],
+464:         seen=["lunuen", "schloss"],
+465:     )
+466:     _write_temp_save(tmp_path, save)
+467:     lines = ["", "", "1"]
+468:     out, err, rc = _run_game(tmp_path, lines)
+469:     assert rc == 0, f"game crashed: {err}"
+470:     assert "Noah is at the bottom of the stairs" in out
+471:     assert "holding a mug" in out
+472: 
+473: 
+474: def test_noah_hurt_shown_at_final(tmp_path):
+475:     """With noah_hurt set, the final scene at the schloss must show Noah
+476:     without a mug."""
+477:     _copy_game(tmp_path)
+478:     save = _save_with(
+479:         location="schloss", sanity=80,
+480:         flags={"noah_hurt": True, "read_ledger": True, "noah_ally": True},
+481:         inventory=[],
+482:         seen=["lunuen", "schloss"],
+483:     )
+484:     _write_temp_save(tmp_path, save)
+485:     lines = ["", "", "1"]
+486:     out, err, rc = _run_game(tmp_path, lines)
+487:     assert rc == 0, f"game crashed: {err}"
+488:     assert "Noah is at the bottom of the stairs" in out
+489:     assert "not holding a mug" in out
